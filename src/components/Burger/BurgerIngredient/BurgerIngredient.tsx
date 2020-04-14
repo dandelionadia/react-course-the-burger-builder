@@ -114,7 +114,11 @@ const StyledBacon = styled.div`
   margin: 2% auto;
 `;
 
-export const BurgerIngredient = (props) => {
+interface BurgerIngredientProps {
+  type: "bread-bottom" | "bread-top" | "meat" | "cheese" | "salat" | "bacon";
+}
+
+export const BurgerIngredient: React.FC<BurgerIngredientProps> = (props) => {
   let ingredient = null;
 
   switch (props.type) {
@@ -129,7 +133,7 @@ export const BurgerIngredient = (props) => {
         </StyledBreadTop>
       );
       break;
-    case "meet":
+    case "meat":
       ingredient = <StyledMeet></StyledMeet>;
       break;
     case "cheese":
