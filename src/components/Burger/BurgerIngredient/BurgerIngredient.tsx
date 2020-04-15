@@ -114,8 +114,16 @@ const StyledBacon = styled.div`
   margin: 2% auto;
 `;
 
-interface BurgerIngredientProps {
-  type: "bread-bottom" | "bread-top" | "meat" | "cheese" | "salat" | "bacon";
+export type IngredientType =
+  | "bread-bottom"
+  | "bread-top"
+  | "meat"
+  | "cheese"
+  | "salat"
+  | "bacon";
+
+export interface BurgerIngredientProps {
+  type: IngredientType;
 }
 
 export const BurgerIngredient: React.FC<BurgerIngredientProps> = (props) => {
