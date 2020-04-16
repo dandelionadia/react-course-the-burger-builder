@@ -41,20 +41,32 @@ export const Burger: React.FC<BurgerProps> = (props) => {
 
   // Then, we need to convert each ingredient into a list of React components.
   // For example, so that { bacon: 3 } would render 3 bacon components.
-  const transformedIngredients = ingredients.map((ingredientKey) => {
-    // Get the value for the current ingredient.
-    // For "salat" it will be: props.ingredients["salat"] (1)
-    // For "bacon": props.ingredients["bacon"] (3)
-    const ingredientValue = props.ingredients[ingredientKey];
+  let transformedIngredients = ingredients
+    .map((ingredientKey) => {
+      // Get the value for the current ingredient.
+      // For "salat" it will be: props.ingredients["salat"] (1)
+      // For "bacon": props.ingredients["bacon"] (3)
+      const ingredientValue = props.ingredients[ingredientKey];
 
-    // The trickiest part, create an empty Array with as many empty elements
-    // as there is ingredient.
-    // For example, for 3 it will create: Array(3) // [empty, empty, empty]
-    return [...Array(ingredientValue)].map((_, i) => {
-      // Render component for each element in the empty Array
-      return <BurgerIngredient key={ingredientKey + i} type={ingredientKey} />;
-    });
-  });
+      // The trickiest part, create an empty Array with as many empty elements
+      // as there is ingredient.
+      // For example, for 3 it will create: Array(3) // [empty, empty, empty]
+      return [...Array(ingredientValue)].map((_, i) => {
+        // Render component for each element in the empty Array
+        return (
+          <BurgerIngredient key={ingredientKey + i} type={ingredientKey} />
+        );
+      });
+    })
+    // [[A], [B, C, D]]
+    // => [A, B, C, D]
+    .reduce((acc, el) => {
+      return acc.concat(el);
+    }, []);
+
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = [<p>Please start adding ingredients!</p>];
+  }
 
   return (
     <>
